@@ -24,7 +24,6 @@ jobs:
           rm -f package-lock.json
           npm install --legacy-peer-deps
           npm run build
-          # Ensure folders exist so Git staging does not crash
           mkdir -p js css
 
       - name: Commit built assets back to repo
@@ -32,6 +31,7 @@ jobs:
         with:
           commit_message: "build: compile Vue frontend assets"
           file_pattern: "js/ css/"
+          add_options: "-f"
 
       - name: Create Nextcloud ready ZIP
         run: |
