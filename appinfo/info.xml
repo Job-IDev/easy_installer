@@ -4,7 +4,18 @@
 	<id>easy_installer</id>
 	<name>Easy Installer</name>
 	<summary>Install custom Nextcloud apps via ZIP or GitHub</summary>
-	<description>Bypasses the command line by allowing admins to upload and install custom Nextcloud apps directly from the web UI.</description>
+	<description><![CDATA[**Easy App Installer** takes the hassle out of installing custom, beta, or third-party Nextcloud apps. 
+
+Normally, installing a custom app requires uploading a ZIP, executing into your web server or Docker pod, unzipping the archive, manually fixing `www-data` file ownership, and enabling the app via OCC. 
+
+This app automates the entire process directly from your Nextcloud admin settings. 
+
+**Features:**
+* **One-Click Uploads:** Simply upload your custom app's `.zip` file through the web interface.
+* **Smart Detection:** Automatically reads the `appinfo/info.xml` inside the ZIP to extract the app into the perfectly named folder, ignoring weird root folder names.
+* **Auto-Updates:** Safely removes old versions of the app before extracting the new one if the app is already installed.
+* **Secure by Design:** Because this app handles server-side file extraction, the interface and API endpoints are strictly locked down to Nextcloud Administrators only.
+]]></description>
 	<version>1.0.0</version>
 	<licence>AGPL-3.0-or-later</licence>
 	<author mail="github@merux.dev" homepage="https://merux.dev">Job Scholten</author>
