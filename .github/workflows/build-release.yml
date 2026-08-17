@@ -1,0 +1,43 @@
+name: Build Frontend and Package App
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies and build
+        run: |
+          npm ci
+          npm run build
+
+      - name: Commit built assets back to repo
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "build: compile Vue frontend assets"
+          file_pattern: "js/* css/*"
+
+      - name: Create Nextcloud ready ZIP
+        run: |
+          mkdir -p release/easy_installer
+          rsync -rc --exclude='release' --exclude='.git' --exclude='.github' --exclude='node_modules' . release/easy_installer/
+          cd release && zip -r ../easy_installer.zip easy_installer/
+
+      - name: Upload compiled ZIP artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: easy_installer-release
+          path: easy_installer.zip
