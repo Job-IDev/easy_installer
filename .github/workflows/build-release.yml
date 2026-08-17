@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - master
 
 jobs:
   build:
@@ -21,14 +20,18 @@ jobs:
 
       - name: Install dependencies and build
         run: |
+          npm config set registry https://registry.npmjs.org/
+          rm -f package-lock.json
           npm install --legacy-peer-deps
           npm run build
+          # Ensure folders exist so Git staging does not crash
+          mkdir -p js css
 
       - name: Commit built assets back to repo
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "build: compile Vue frontend assets"
-          file_pattern: "js/* css/*"
+          file_pattern: "js/ css/"
 
       - name: Create Nextcloud ready ZIP
         run: |
