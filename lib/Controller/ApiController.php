@@ -16,11 +16,8 @@ class ApiController extends Controller {
 
     /**
      * @AdminRequired
-     * 
-     * The @AdminRequired annotation ensures that only Nextcloud admins 
-     * can hit this endpoint, which is crucial for security.
      */
-    public function uploadApp(string $appId): DataResponse {
+    public function uploadApp(): DataResponse {
         $file = $this->request->getUploadedFile('app_zip');
         
         if (!$file || $file['error'] !== UPLOAD_ERR_OK) {
@@ -28,9 +25,12 @@ class ApiController extends Controller {
         }
 
         try {
-            // Hand the temporary PHP upload path to our installer service
-            $this->installerService->installZip($file['tmp_name'], $appId);
-            return new DataResponse(['status' => 'success']);
+            $installedAppId = $this->installerService->installZip($file['tmp_name']);
+            return new DataResponse([
+                'status' => 'success',
+                'appId' => $installedAppId,
+                'message' => "App '$installedAppId' installed and enabled successfully."
+            ]);
         } catch (\Exception $e) {
             return new DataResponse(['error' => $e->getMessage()], 500);
         }
