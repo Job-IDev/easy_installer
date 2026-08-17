@@ -17,11 +17,11 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
 
       - name: Install dependencies and build
         run: |
-          npm ci
+          npm install --legacy-peer-deps
           npm run build
 
       - name: Commit built assets back to repo
