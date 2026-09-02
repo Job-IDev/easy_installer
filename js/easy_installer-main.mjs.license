@@ -29,19 +29,19 @@ This file is generated from multiple sources. Included packages:
 	- version: 6.0.8
 	- license: MIT
 - @vue/reactivity
-	- version: 3.5.41
+	- version: 3.5.42
 	- license: MIT
 - @vue/runtime-core
-	- version: 3.5.41
+	- version: 3.5.42
 	- license: MIT
 - @vue/runtime-dom
-	- version: 3.5.41
+	- version: 3.5.42
 	- license: MIT
 - @vue/shared
-	- version: 3.5.41
+	- version: 3.5.42
 	- license: MIT
 - axios
-	- version: 1.19.0
+	- version: 1.20.0
 	- license: MIT
 - easy_installer
 	- version: 1.0.0
